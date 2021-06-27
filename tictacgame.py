@@ -1,20 +1,24 @@
 import curses
 import math
 
-def newGame(LINES, COLS):
-    win = curses.newwin(LINES, COLS, 0, 0)
-    win.refresh()
+def drawBoard(gameWin, BOARDCOLS, BOARDLINES):
+    for i in range(BOARDCOLS):
+        gameWin.addstr(math.floor(BOARDLINES / 3), i, "-")
+        gameWin.addstr(math.floor(BOARDLINES / 1.5), i, "-")
+        
+    for i in range(BOARDLINES):
+        gameWin.addstr(i, math.floor(BOARDCOLS / 3), "|")
+        gameWin.addstr(i, math.floor(BOARDCOLS / 1.5), "|")
     
+
+
+
+def newGame(LINES, COLS):
+    gameWin = curses.newwin(LINES, COLS, 0, 0)
     BOARDCOLS = math.floor(COLS / 2)
     BOARDLINES = LINES - 4
     
-    for i in range(BOARDCOLS):
-        win.addstr(math.floor(BOARDLINES / 3), i, "-")
-        win.addstr(math.floor(BOARDLINES / 1.5), i, "-")
-        
-    for i in range(BOARDLINES):
-        win.addstr(i, math.floor(BOARDCOLS / 3), "|")
-        win.addstr(i, math.floor(BOARDCOLS / 1.5), "|")
+    drawBoard(gameWin, BOARDCOLS, BOARDLINES)
     
-    win.addstr(BOARDLINES, BOARDCOLS, "XD")
-    win.refresh()
+    gameWin.addstr(BOARDLINES, 0, "XD")
+    gameWin.refresh()
