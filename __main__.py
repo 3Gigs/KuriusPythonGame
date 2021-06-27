@@ -1,10 +1,8 @@
 import curses
-
-def newGame(stdscr):
-    print("xd")
+from tictacgame import newGame
 
 def initGame(stdscr):
-    ROWS, COLS = stdscr.getmaxyx()
+    LINES, COLS = stdscr.getmaxyx()
 
     stdscr.clear()
     for i in range(COLS):
@@ -19,11 +17,10 @@ def initGame(stdscr):
     
     while True:
         key = stdscr.getch()
-        if key == ord('\n'):
-            stdscr.addstr("xd\n")
-            stdscr.refresh()
+        if key == ord('\n' or '\r'):
+            newGame(LINES, COLS)
         if key == ord('q'):
-            stdscr.endwin()
+            break
                 
 if __name__ == '__main__':
     curses.wrapper(initGame)
