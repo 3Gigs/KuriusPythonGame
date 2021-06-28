@@ -1,30 +1,26 @@
-import curses
-from tictacgame import newGame
+def drawBoard(board):
+    print(board[0] + "|" + board[1] + "|" + board[2] + "|")
+    print(board[3] + "|" + board[4] + "|" + board[5] + "|")
+    print(board[6] + "|" + board[7] + "|" + board[8] + "|")
 
-def initGame(stdscr):
-    LINES, COLS = stdscr.getmaxyx()
-
-    stdscr.clear()
-    for i in range(COLS):
-        if(i % 2):
-            stdscr.addstr("X")
-        else:
-            stdscr.addstr("O")
-    stdscr.addstr("Welcome to tic tac toe with Curses!\n")
-    stdscr.addstr(str(LINES) + "\n")
-    stdscr.addstr(str(COLS) + "\n")
-    stdscr.addstr("Created by Huaxuan Yang (3Gigs)\n")
-    stdscr.addstr("Please press ENTER to start game!\n", curses.A_BOLD)
-    stdscr.addstr("Press Q to exit game\n", curses.A_BOLD)
-    
+def newGame(board):
+    players = ('X', 'O')
+    turn = 0
     while True:
-        key = stdscr.getch()
-        if key == ord('\n' or '\r'):
-            stdscr.clear()
-            stdscr.refresh()
-            newGame()
-        if key == ord('q'):
-            break
-                
+        drawBoard(board)
+        if(turn == 2):
+            turn = 0
+        print(f"It is {players[turn]}'s turn")
+        gridNumber = int(input("Enter grid number (left to right order 0-8): "))
+        if(gridNumber < 0 or gridNumber > 8):
+            print("Enter a valid grid")
+        board[gridNumber] = players[turn]
+        print("")
+        turn += 1
+
 if __name__ == '__main__':
-    curses.wrapper(initGame)
+    print("Welcome to tic-tac-toe terminal edition!")
+    board = ["-", "-", "-",
+             "-", "-", "-",
+             "-", "-", "-"]
+    newGame(board)
