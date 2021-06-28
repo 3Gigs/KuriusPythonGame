@@ -25,19 +25,25 @@ def checkWinner(board, players):
 def newGame(board):
     players = ('X', 'O')
     playerTurn = 0
+    turnCount = 0
     while True:
+        if(turnCount == 9):
+            print("Tie!")
+            break
         drawBoard(board)
         if(checkWinner(board, players) == True):
             break
         if(playerTurn == 2):
             playerTurn = 0
         print(f"It is {players[playerTurn]}'s turn")
-        gridNumber = int(input("Enter grid number (left to right order 0-8): "))
-        if(gridNumber < 0 or gridNumber > 8):
-            print("Enter a valid grid")
+        gridNumber = 0
+        while (not(gridNumber > 0 and gridNumber < 10)):
+            gridNumber = int(input("Enter grid number (left to right order 1-9): "))
+        gridNumber -= 1
         if(board[gridNumber] == '-'):
             board[gridNumber] = players[playerTurn]
+            playerTurn += 1
+            turnCount += 1
         else:
             print("Grid already taken")
         print("")
-        playerTurn += 1
